@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
     
-    Hexo</title>
+    GuanJunDev</title>
   
     <link rel="shortcut icon" href="/favicon.ico">
   
@@ -45,9 +45,9 @@
       <div class="video-overlay"></div>
     </div>
     <div class="video-inner text-center text-white">
-      <h1><a href="/">Hexo</a></h1>
+      <h1><a href="/">GuanJunDev</a></h1>
       <p></p>
-      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Hexo"></div>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="GuanJunDev"></div>
     </div>
     <div class="video-learn-more">
       <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
@@ -99,120 +99,17 @@
                                             
 
                                                 
-                                                                    <h4 id="1-下载安装-Node"><a href="#1-下载安装-Node" class="headerlink" title="1. 下载安装 Node"></a>1. 下载安装 Node</h4><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node官网</a>，一步步安装即可</p>
-<h4 id="2-安装-Git"><a href="#2-安装-Git" class="headerlink" title="2. 安装 Git"></a>2. 安装 Git</h4><h4 id="3-申请-GitHub（用户名为-username-），配置-SSH-Keys"><a href="#3-申请-GitHub（用户名为-username-），配置-SSH-Keys" class="headerlink" title="3. 申请 GitHub（用户名为 username ），配置 SSH Keys"></a>3. 申请 GitHub（用户名为 username ），配置 SSH Keys</h4><p>创建仓库，名字固定：<code>username.github.io</code></p>
-<h4 id="4-安装-HEXO"><a href="#4-安装-HEXO" class="headerlink" title="4. 安装 HEXO"></a>4. 安装 HEXO</h4><p>打开<code>Git Bash</code>, 执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo</span><br></pre></td></tr></table></figure>
-
-<p>如果不行，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>然后安装，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo -g</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-创建一个文件夹-blog-，在文件夹内-Shift-右键打开命令窗口"><a href="#5-创建一个文件夹-blog-，在文件夹内-Shift-右键打开命令窗口" class="headerlink" title="5. 创建一个文件夹 blog ，在文件夹内 Shift + 右键打开命令窗口"></a>5. 创建一个文件夹 blog ，在文件夹内 Shift + 右键打开命令窗口</h4><p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p>再执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-
-<p><em>（hexo g 也可以）</em></p>
-<h4 id="6-启动-HEXO"><a href="#6-启动-HEXO" class="headerlink" title="6. 启动 HEXO"></a>6. 启动 HEXO</h4><p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p>浏览器输入 <code>http://localhost:4000</code> 即可打开</p>
-<h4 id="7-修改-blog-下-config-yml"><a href="#7-修改-blog-下-config-yml" class="headerlink" title="7. 修改 blog 下 _config.yml"></a>7. 修改 blog 下 _config.yml</h4><p>最下方修改为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">repository: https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;username.github.io</span><br><span class="line">branch: master</span><br><span class="line"></span><br><span class="line">-其他配置自主修改</span><br></pre></td></tr></table></figure>
-
-<p>然后</p>
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>现在查看 github 仓库，你会发现已经有很多文件了<br>在浏览器打开 <code>https://username.github.io/</code> 即可访问</p>
-<h4 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h4><p>部署</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>其他</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭server）</span><br><span class="line">hexo deploy #将.deploy目录部署到GitHub</span><br><span class="line">hexo help  #查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>
-
-<p>case:创建一片博文</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. hexo new &quot;title&quot;</span><br><span class="line">2. \blog\source\_posts下会生成title.md文件，用MD编辑器打开，编写内容</span><br><span class="line">3. hexo generate</span><br><span class="line">4. hexo deploy</span><br><span class="line">5. 完成，重新访问blog即可看到刚才编辑的文章</span><br></pre></td></tr></table></figure>
-                                                                        
+                                                    <p><img src="/images/hexo_github_blog_banner.jpg" alt=""></p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/05/21/Hexo-GitHub-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+                                                                查看全文
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/21/Hexo-GitHub-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckag9m8w10000gwty98uugvqk" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
-    </div>
-
-    
-
-                
-
-</article>
-        
-          <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/05/21/hello-world/">Hello World</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/05/21/hello-world/" class="article-date">
-  <time datetime="2020-05-21T03:13:46.410Z" itemprop="datePublished">2020-05-21</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/21/hello-world/" data-id="ckag9m8w60001gwty97ax2l4i" class="article-share-link">
-                                            Share
+                                        <a data-url="http://guanjundev.com/2020/05/21/Hexo-GitHub-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckagbrgnq0000ccty3cyygzzj" class="article-share-link">
+                                            分享
                                         </a>
                                         
                                     </footer>
@@ -244,7 +141,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2020 Hexo</li>
+      <li>&copy; 2020 GuanJunDev</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
     </ul>
@@ -257,7 +154,7 @@
 <nav class="navbar">
   
     <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="Hexo"></a>
+      <a href="/"><img src="/images/hexo.svg" alt="GuanJunDev"></a>
     </div>
   
   <ul class="nav nav-main">
@@ -271,17 +168,13 @@
       </li>
     
       <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">相册</a>
-      </li>
-    
-      <li class="nav-item">
         <a class="nav-item-link" href="/about">关于</a>
       </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Search">
+      <a class="nav-item-link nav-item-search" title="搜索">
         <i class="fe fe-search"></i>
-        Search
+        搜索
       </a>
     </li>
   </ul>
