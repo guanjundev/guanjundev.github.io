@@ -24,7 +24,7 @@
 <meta property="og:description" content="Handler 常用使用场景在 Activity 中定义一个 Handler 1234567891011121314private val mHandler &#x3D; object : Handler(Looper.getMainLooper()) {    override fun handleMessage(msg: Message) {        when(msg.what) {">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-25T13:10:34.000Z">
-<meta property="article:modified_time" content="2022-09-25T13:14:23.228Z">
+<meta property="article:modified_time" content="2022-09-25T14:15:11.157Z">
 <meta property="article:author" content="Guan Jun">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Handler">
@@ -68,7 +68,8 @@
     
 
 
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Guanjundev" type="application/atom+xml">
+</head>
 <body>
     
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
@@ -131,7 +132,9 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><h2 id="Handler-常用使用场景"><a href="#Handler-常用使用场景" class="headerlink" title="Handler 常用使用场景"></a>Handler 常用使用场景</h2><p>在 Activity 中定义一个 Handler</p>
+        <html><head></head><body><span id="more"></span>
+
+<h2 id="Handler-常用使用场景"><a href="#Handler-常用使用场景" class="headerlink" title="Handler 常用使用场景"></a>Handler 常用使用场景</h2><p>在 Activity 中定义一个 Handler</p>
 <figure class="highlight kotlin hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">val</span> mHandler = <span class="hljs-keyword">object</span> : Handler(Looper.getMainLooper()) {</span><br><span class="line">    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">handleMessage</span><span class="hljs-params">(msg: <span class="hljs-type">Message</span>)</span></span> {</span><br><span class="line">        <span class="hljs-keyword">when</span>(msg.what) {</span><br><span class="line">            CODE_GET_USER_INFO -&gt; {</span><br><span class="line">                <span class="hljs-keyword">val</span> user = msg.obj <span class="hljs-keyword">as</span> User</span><br><span class="line">                textViewName.text = user.name</span><br><span class="line">                textViewSite.text = user.site</span><br><span class="line">                imageViewIcon.load(user.icon){</span><br><span class="line">                    transformations(CircleCropTransformation())</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>在子线程获取到数据之后通过 Handler 将数据传到 UI 线程进行处理</p>
