@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>2022 Android 面试准备 - 关俊的个人博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+
+    <meta name="description" content="ActivitysingleTask：单例，taskAffinity：指定 Activity 要压入的 task singleInstance：单例且独立 task allowTaskReparenting 赋予 Activity 在各个 Task 中间转移的特性  Activity 的 onSaveInstance 方法何时调用？它跟onPause、onStop的调用顺序如何？  Binder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2022 Android 面试准备">
+<meta property="og:url" content="http://example.com/2022/10/19/2022%20Android%20%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="关俊的个人博客">
+<meta property="og:description" content="ActivitysingleTask：单例，taskAffinity：指定 Activity 要压入的 task singleInstance：单例且独立 task allowTaskReparenting 赋予 Activity 在各个 Task 中间转移的特性  Activity 的 onSaveInstance 方法何时调用？它跟onPause、onStop的调用顺序如何？  Binder">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-19T15:25:45.000Z">
+<meta property="article:modified_time" content="2022-10-19T15:36:04.650Z">
+<meta property="article:author" content="Guan Jun">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="关俊的个人博客" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/world">世界</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="目录">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Activity">1&nbsp;&nbsp;<b>Activity</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#startActivity的具体过程">2&nbsp;&nbsp;<b>startActivity的具体过程</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Activity-setContentView的具体过程">3&nbsp;&nbsp;<b>Activity#setContentView的具体过程</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#事件分发，滑动冲突">4&nbsp;&nbsp;<b>事件分发，滑动冲突</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#动画">5&nbsp;&nbsp;<b>动画</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#View-绘制">6&nbsp;&nbsp;<b>View 绘制</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Bitmap">7&nbsp;&nbsp;<b>Bitmap</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#RecyclerView的特点和缓存">8&nbsp;&nbsp;<b>RecyclerView的特点和缓存</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#动态代理的实现-–todo">9&nbsp;&nbsp;<b>动态代理的实现 –todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#OOM和内存泄漏">10&nbsp;&nbsp;<b>OOM和内存泄漏</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#包体积如何优化">11&nbsp;&nbsp;<b>包体积如何优化</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#ThreadLocal干嘛的？用法和原理">12&nbsp;&nbsp;<b>ThreadLocal干嘛的？用法和原理</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo">13&nbsp;&nbsp;<b>jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#优化-–todo">14&nbsp;&nbsp;<b>优化 –todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Retrofit-–-doing">15&nbsp;&nbsp;<b>Retrofit – doing</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Rxjava-–doing">16&nbsp;&nbsp;<b>Rxjava –doing</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#LeakCanary">17&nbsp;&nbsp;<b>LeakCanary</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#单例、观察者、装饰者，工厂，双亲委托-–todo">18&nbsp;&nbsp;<b>单例、观察者、装饰者，工厂，双亲委托 –todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#策略模式和桥接模式的区别-–todo">19&nbsp;&nbsp;<b>策略模式和桥接模式的区别 –todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#插件化和热更新原理-–todo">20&nbsp;&nbsp;<b>插件化和热更新原理 –todo</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo">21&nbsp;&nbsp;<b>Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo</b></a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            2022 Android 面试准备
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2022-10-19T15:25:45.000Z" itemprop="datePublished">10月 19 2022</time>
+                <span class="second-date-block"> (10月 19 2022)</span>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><p>singleTask：单例，taskAffinity：指定 Activity 要压入的 task</p>
+<p>singleInstance：单例且独立 task</p>
+<p>allowTaskReparenting 赋予 Activity 在各个 Task 中间转移的特性</p>
+<ul>
+<li><p>Activity 的 onSaveInstance 方法何时调用？它跟onPause、onStop的调用顺序如何？</p>
+</li>
+<li><p>Binder 传输限制通常 1 M，不同厂商不同版本会有区别。</p>
+<ul>
+<li>非必须的字段添加 transient 禁止序列化</li>
+<li>转 json 传输</li>
+</ul>
+</li>
+</ul>
+<h2 id="startActivity的具体过程"><a href="#startActivity的具体过程" class="headerlink" title="startActivity的具体过程"></a>startActivity的具体过程</h2><ul>
+<li><p>执行到 Instrumentation#execStartActivity</p>
+</li>
+<li><p>通过 ActivityTaskManager.getService() 获取 ATMS（Binder）代理，执行其  startActivity</p>
+<ul>
+<li>在系统启动的时候， 有从 init 到 zygote 到 system_server 的一套流程</li>
+</ul>
+</li>
+<li><p>构建一个  ActivityStarter ，根据请求参数进行启动</p>
+<ul>
+<li>权限检查，处理异常</li>
+<li>封装 ActivityRecord，处理更新 task 栈帧信息</li>
+</ul>
+</li>
+<li><p>判断目标进程是否已存在</p>
+<ul>
+<li>已存在：那么目标 ActivityThread 已经启动且 ATMS 是持有其内部 Binder（ApplicationThread）代理的。开启事务，通过 ActivityThread 的 Binder 代理，发送事务执行消息，最终执行 handleLaunchActivity<ul>
+<li>反射创建 Activity 对象</li>
+<li>调用 Activity#attach<ul>
+<li>构建 PhoneWindow，将 Activity 与其关联，并持有 WindowManagerImpl 的引用</li>
+</ul>
+</li>
+<li>调用 Instrumentation#callActivityOnCreate 执行 Activity 的 onCreate 生命周期</li>
+</ul>
+</li>
+<li>不存在：ATMS 通过 startProcessAsync 发送异步消息通知 AMS 启动进程<ul>
+<li>这里是通过 PooledLambda 构建了一个 Message，再通过 mH.sendMessage 发送消息，但是我在 mH 中没有看到相关处理逻辑，进入到 PooledLambda  中发现，其实是通过 Message.obtain().setCallback 生成的 Message，所以这里其实是使用的 Message 中的 Runnable x消息分发触发 run 方法从而执行的传入的 ActivityManagerInternal::startProcess 方法，最终由实现了该接口的 AMS 的内部类 LocalService 执行</li>
+<li>AMS.LocalService#startProcess -&gt; ProcessList#startProcess -&gt; Zygote 创建进程，执行applicationInit，调用 ActivityThread.main。这里 AMS 将持有 ActivityThread 的 Binder 代理<ul>
+<li>prepareMainLooper</li>
+<li>构建 ActivityThread，执行 attach 方法，<ul>
+<li>通过 getService 调用 AMS#attachApplication，将 ApplicationThread（Binder）传入</li>
+<li>AMS 通过 ApplicationThread 调用 bindApplication 又回到 ActivityThread</li>
+<li>ActivityThread 中执行 sendMessage(H.BIND_APPLICATION, data)，实际执行 handleBindApplication</li>
+<li>构建 Instrumentation 和 Application，Instrumentation#callApplicationOnCreate</li>
+</ul>
+</li>
+<li>Looper.loop()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>AMS 继续执行 Activity 的启动处理</p>
+</li>
+</ul>
+<blockquote>
+<p>Flag，launchMode，taskAffinity</p>
+</blockquote>
+<h2 id="Activity-setContentView的具体过程"><a href="#Activity-setContentView的具体过程" class="headerlink" title="Activity#setContentView的具体过程"></a>Activity#setContentView的具体过程</h2><p>①PhoneWindow是何时创建的，它的作用是什么？<br>    创建 Activity 时调用其 attach 方法中创建的，…</p>
+<p>②setContentView中传递的资源文件是如何变成View对象的？<br>    LayoutInflater.from(mContext).inflate(resId, contentParent);</p>
+<p>③布局文件对应的View对象是添加到哪里的？<br>    DecorView 中的 contentParent 中</p>
+<p>④Activity的布局是何时显示出来的？<br>    只有执行完 onResume 之后 Activity 中的内容才是屏幕可见状态。onCreate 阶段只是初始化了 Activity 需要显示的内容，而在 onResume 阶段才会将 PhoneWindow 中的 DecorView 真正的绘制到屏幕上。</p>
+<p>⑤ViewRootImpl是何时初始化的？它的作用是什么？</p>
+<p>⑥Choreography了解么？作用是什么？</p>
+<p><strong>初始化阶段</strong></p>
+<ul>
+<li>AppCompatDelegateImpl#setContentView</li>
+<li>执行 PhoneWindow#getDecorView()，构建 DecorView（FrameLayout），从DecorView 中获取 mContentParent</li>
+<li>将 resId 通过 inflate 转化成 View 添加到 mContentParent 中</li>
+</ul>
+<p><strong>绘制阶段</strong></p>
+<ul>
+<li><p>执行 ActivityThread#handleResumeActivity，调用 WindowManager.addView</p>
+</li>
+<li><p>实际调用 WindowManagerGlobal#addView</p>
+</li>
+<li><p>构建 ViewRootImpl，调用其 setView 方法（将 DecorView 添加到 WMS）</p>
+<ul>
+<li>requestLayout() - 执行完整的 View 树的渲染操作。调用此方法后 ViewRootImpl 所关联的 View 也执行 measure - layout - draw 操作，确保在 View 被添加到 Window 上显示到屏幕之前，已经完成测量和绘制操作。<ul>
+<li>checkThread() 检查线程是否合法，需与 ViewRootImpl 一致，即 UI 线程</li>
+<li>scheduleTraversals() - 方法中添加了同步屏障，实际执行 performTraversals()，这个方法就是真正的开始 View 绘制流程：measure –&gt; layout –&gt; draw 。<ul>
+<li>performLayout() <ul>
+<li>measureHierarchy() - performMeasure() - mView.measure()</li>
+<li>host.layout() – host = mView</li>
+</ul>
+</li>
+<li>performDraw()<ul>
+<li>draw(fullRedrawNeeded)<ul>
+<li>mAttachInfo.mThreadedRenderer.draw(mView, mAttachInfo, this) – 硬件加速绘制（GPU）</li>
+<li>drawSoftware() – 软件绘制（CPU）<ul>
+<li>mView.draw(canvas) </li>
+<li>surface.unlockCanvasAndPost(canvas) – 将 Canvas 中的内容提交给 SurfaceFlinger 进行合成处理。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调用 mWindowSession.addToDisplayAsUser，mWS = WindowManagerGlobal.getWindowSession()<ul>
+<li>getWindowSession - 通过 ipc 调用 WMS#openSession 获取 Session，调用其 addToDisplayAsUser，将 ViewRootImpl 弱引用存储，整个给到 WMS </li>
+<li>实际调用 WMS#addWindow，完成后面的添加动作</li>
+</ul>
+</li>
+<li>设置输入管道，用来接收屏幕触摸事件</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>ViewRootImpl 中有一个非常重要的对象 Surface，之所以说 ViewRootImpl 的一个核心功能就是负责 UI 渲染，原因就在于在 ViewRootImpl 中会将我们在 draw 方法中绘制的 UI 元素，绑定到这个 Surface 上。如果说 Canvas 是画板，那么 Surface 就是画板上的画纸，Surface 中的内容最终会被传递给底层的 SurfaceFlinger，最终将 Surface 中的内容进行合成并显示的屏幕上。</p>
+</blockquote>
+<p><strong>硬件加速绘制</strong></p>
+<p>并不是所有的 2D 绘制操作都支持硬件加速</p>
+<p>View 视图被抽象成 RenderNode 节点，View 中的绘制操作都会被抽象成一个个 DrawOp，每个 DrawOp 有对应的 OpenGL 绘制命令。</p>
+<p>遍历 View 递归构建 DrawOp，根据 Canvas 将所有的 DrawOp 进行缓存操作。所有的 DrawOp 对应的 OpenGL 命令构建完成之后，就需要使用 RenderProxy 向 RenderThread 发送消息，请求 OpenGL 线程进行渲染。整个渲染过程是通过 GPU 并在不同线程绘制渲染图形，因此整个流程会更加顺畅。</p>
+<p><strong>Invalidate</strong></p>
+<p>这个方法跟 requestLayout 的区别在于，它不一定会触发 View 的 measure 和 layout 的操作，多数情况下只会执行 draw 操作。</p>
+<p>measure 方法中有个强制布局的标志位，只有当这个标志位为 true 才会执行 onMeasure，requestLayout 中会设置，但是 invalidate 不会。</p>
+<p>当调用 invalidate 方法时，如果 View 的位置并没有发生改变，则 View 不会触发重新布局的操作。</p>
+<p><strong>postInvalidate</strong></p>
+<p>invalidate 是在 UI 线程调用，postInvalidate 是在非 UI 线程调用。</p>
+<h2 id="事件分发，滑动冲突"><a href="#事件分发，滑动冲突" class="headerlink" title="事件分发，滑动冲突"></a>事件分发，滑动冲突</h2><p>触摸事件通过驱动层 WMS 到达 DecorView 的 dispatchTouchEvent，执行 mWindow.cb.dispatchTouchEvent，这里的 cb 就是 Activity（在 Activity 的 attach 中设置），再从 Activity 的 dispatchTouchEvent 到 PhoneWindow.superDispatchTouchEvent，再到 DecorView.superDispatchTouchEvent</p>
+<p>从 ViewGroup#dispatchTouchEvent 开始</p>
+<ul>
+<li>判断 ViewGroup 是否拦截（down 事件 或者 TouchTarget 不为空），通过 onInterceptTouchEvent 判断</li>
+<li>不拦截，事件分发给子 View 继续处理<ul>
+<li>前提是 down 事件</li>
+<li>遍历子 View，View 坐标范围符合且不在动画状态</li>
+<li>dispatchTransformedTouchEvent 将事件分发给 View# dispatchTouchEvent ，如果 View 消费事件，赋值给 TouchTarget</li>
+</ul>
+</li>
+<li>如果有子 View 消费事件，将后续事件直接交其处理<ul>
+<li>这里有个有趣的事情，就是如果在后续事件中 onInterceptTouchEvent 返回 true，子 View 将会收到 cancel 事件。这也就是滑动冲突的解决思路。</li>
+</ul>
+</li>
+<li>如果没有，最终会执行自身的 onTouchEvent 进行处理</li>
+</ul>
+<p>View# dispatchTouchEvent </p>
+<ul>
+<li>优先判断 TouchListener ，处理 onTouch</li>
+<li>其次 onTouchEvent</li>
+</ul>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><ul>
+<li><p>帧动画 ： 顺序播放图片 </p>
+</li>
+<li><p>补间动画 ： 只需要定义动画开始与结束两个关键帧，并指定动画变化的时间与方式等 。 只能给View加，不能给对象加，并且不会改变对象的真实属性。 </p>
+</li>
+<li><p>属性动画 ：  补间动画增强版本。 任意 Java 对象，不再局限于 View。 分为ObjectAnimator和ValueAnimator。 </p>
+</li>
+<li><p>ValueAnimator 类是先改变值，然后手动赋值给对象的属性从而实现动画；是间接对对象属性进行操作；</p>
+</li>
+<li><p>ObjectAnimator 类是先改变值，然后自动赋值给对象的属性从而实现动画；是直接对对象属性进行操作；</p>
+</li>
+</ul>
+<p>  <strong>插值器</strong>：根据时间流逝的百分比计算出当前属性值改变的百分比。</p>
+<p>  <strong>估值器</strong>：根据当前属性改变的百分比来计算改变后的属性值。</p>
+<p>   要控制动画速率的变化，就得去自定义插值器或估值器，或者使用关键帧<code>Keyframe</code>对象来实现。<code>Keyframe</code>让我们可以指定<strong>某个属性百分比</strong>时对象的<strong>属性值</strong>。 </p>
+<ul>
+<li>过渡动画 ：Activity 或 View 转场动画</li>
+</ul>
+<h2 id="View-绘制"><a href="#View-绘制" class="headerlink" title="View 绘制"></a>View 绘制</h2><ul>
+<li><p>onMeasure、onLayout、onDraw</p>
+<ul>
+<li><p>测量，确定最终宽高</p>
+<ul>
+<li>EXACTLY 固定宽高（设定具体值或者 match_parent）</li>
+<li>AT_MOST 自适应</li>
+<li>UNSPECIFIED 父容器对当前 View 无限制（ 比如ScrollView，它的子View可以随意设置大小，无论多高，都能滚动显示 ）</li>
+</ul>
+</li>
+<li><p>MeasureSpec</p>
+<p> MeasureSpec是父控件提供给子View的一个参数，作为设定自身大小参考，只是个参考，要多大，还是View自己说了算</p>
+</li>
+</ul>
+</li>
+<li><p>onMeasure和onLayout为何会执行两次或多次？</p>
+<ul>
+<li><p>当<code>ViewRootImpl</code>添加<code>View</code>时，就会测量多次 </p>
+</li>
+<li><p>ViewRootIpml 在进行测量、布局、绘制前会进行一次预测量，已得到最佳的窗口显示效果。</p>
+<p>在预测量过程中进行两次协商，以得到最佳的显示尺寸，两次协商不成则直接使用窗口的尺寸进行一次预测量。</p>
+</li>
+<li><p>进行真正的测量，会调用一次。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h2><p>宽 * 高 * 1个像素所需字节数</p>
+<ul>
+<li><p>修改图片加载的 BitmapFactory.Options</p>
+<ul>
+<li>将存储方式设置为 Bitmap.Config.RGB_565，1像素 = 2字节</li>
+<li>实现 Bitmap 采样压缩（inSampleSize，每隔 inSampleSize 个像素进行一次采集）</li>
+</ul>
+</li>
+<li><p>Bitmap 复用（Options.inBitmap），inMutable 需设置 true</p>
+</li>
+<li><p>BitmapRegionDecoder 图片分片显示</p>
+</li>
+<li><p>Bitmap 缓存</p>
+<ul>
+<li>LruCache</li>
+</ul>
+</li>
+</ul>
+<h2 id="RecyclerView的特点和缓存"><a href="#RecyclerView的特点和缓存" class="headerlink" title="RecyclerView的特点和缓存"></a>RecyclerView的特点和缓存</h2><p><strong>1. RecyclerView 是如何经过测量、布局，最终绘制到屏幕上，其中大部分工作是通过委托给 LayoutManager 来实现的。不同的 LayoutManager 会有不同风格的布局显示，这是一种策略模式</strong></p>
+<p><strong>2. RecyclerView 的缓存复用机制，主要是通过内部类 Recycler 来实现。</strong></p>
+<blockquote>
+<p>4 级缓存中依次查找</p>
+</blockquote>
+<ul>
+<li><p>第一级缓存 mAttachedScrap&amp;mChangedScrap</p>
+<ul>
+<li>两个 ArrayList，这两者主要用来缓存屏幕内的 ViewHolder（下拉刷新）</li>
+</ul>
+</li>
+<li><p>第二级缓存 mCachedViews</p>
+<ul>
+<li>缓存移除屏幕之外的 ViewHolder</li>
+<li>刚移除屏幕，可能立刻用到，但又不能缓存所有，所以默认 2，可修改，先进先出</li>
+</ul>
+</li>
+<li><p>第三级缓存 ViewCacheExtension</p>
+<ul>
+<li>抽象类，开发者自己实现</li>
+</ul>
+</li>
+<li><p>第四级缓存 RecycledViewPool</p>
+<ul>
+<li><p>缓存屏幕外的 ViewHolder</p>
+</li>
+<li><p>mCachedViews 中淘汰出来的 ViewHolder 会先缓存到 RecycledViewPool 中</p>
+</li>
+<li><p>缓存到 RecycledViewPool 时，会将内部的数据清理，因此从 RecycledViewPool 中取出来的 ViewHolder 需要重新调用 onBindViewHolder 绑定数据 （同 LV 复用 convertView）</p>
+</li>
+<li><p>多个 RV 之间可以共享一个 RecycledViewPool</p>
+<p><strong>需要注意的是，RecycledViewPool 是根据 type 来获取 ViewHolder，每个 type 默认最大缓存 5 个。</strong>因此多个 RecyclerView 共享 RecycledViewPool 时，必须确保共享的 RecyclerView 使用的 Adapter 是同一个，或 view type 是不会冲突的。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="动态代理的实现-–todo"><a href="#动态代理的实现-–todo" class="headerlink" title="动态代理的实现 –todo"></a>动态代理的实现 –todo</h2><h2 id="OOM和内存泄漏"><a href="#OOM和内存泄漏" class="headerlink" title="OOM和内存泄漏"></a>OOM和内存泄漏</h2><p>内存溢出：内存不够用</p>
+<p>内存泄漏：本该释放的对象没有释放</p>
+<p>内存抖动：频繁 GC，比如在 onDraw 里面频繁的创建对象</p>
+<h2 id="包体积如何优化"><a href="#包体积如何优化" class="headerlink" title="包体积如何优化"></a>包体积如何优化</h2><p>删除无用代码和资源</p>
+<p>图片压缩，某些资源考虑 CDN 网络下载</p>
+<p>删除不常用 abi，考虑只保留 arm-v7 和 64 位</p>
+<p>代码混淆</p>
+<p>部分功能可考虑插件化（不同主题或字体等）</p>
+<h2 id="ThreadLocal干嘛的？用法和原理"><a href="#ThreadLocal干嘛的？用法和原理" class="headerlink" title="ThreadLocal干嘛的？用法和原理"></a>ThreadLocal干嘛的？用法和原理</h2><p>用于线程隔离做数据存储的工具类。</p>
+<p>ThreadLocal 是指线程的本地变量，我们可以通过 ThreadLocal 去设计只有线程内部才可以访问的变量，该变量是与其他线程所隔离的。 可以理解为一种类似于 Map 的存储结构，它的 key 是当前线程。</p>
+<p>我们一般是在理解 Handler 跨进程机制时会接触到 ThreadLocal。</p>
+<p>ThreadLocal 有个内部类 ThreadLocalMap，ThreadLocalMap 又有个继承于 <strong>WeakReference</strong> 的内部类 Entry  的数组，用来实际存储，Thread 这个类里面有个成员变量 threadLocals 就是 ThreadLocalMap。</p>
+<p>我们在创建 Looper 之后会让 Looper 与当前所在线程关联，就是通过获取当前线程的 ThreadLocalMap，然后再将其放到 Entry 里面。取的时候也是根据当前线程获取其 ThreadLocalMap 再从 Entry 中取。</p>
+<h2 id="jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo"><a href="#jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo" class="headerlink" title="jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo"></a>jvm：运行时数据分区；类加载过程；GCRoot，垃圾回收算法。–todo</h2><h2 id="优化-–todo"><a href="#优化-–todo" class="headerlink" title="优化 –todo"></a>优化 –todo</h2><h2 id="Retrofit-–-doing"><a href="#Retrofit-–-doing" class="headerlink" title="Retrofit – doing"></a>Retrofit – doing</h2><p>核心思想： <code>Retrofit </code>通过动态代理我们定义的 <code>service</code> 接口代理对象，调用其方法时就会转移到<code>InvocationHandler</code> 对象的 <code>invoke</code> 方法中。 </p>
+<ul>
+<li>动态代理获取服务</li>
+<li>对注解参数进行解析封装</li>
+<li>提供转换接口（RxJava、Gson）</li>
+</ul>
+<h2 id="Rxjava-–doing"><a href="#Rxjava-–doing" class="headerlink" title="Rxjava –doing"></a>Rxjava –doing</h2><h2 id="LeakCanary"><a href="#LeakCanary" class="headerlink" title="LeakCanary"></a>LeakCanary</h2><p><strong>实现原理</strong><br>LeakCanary 中对内存泄漏的检测基于 WeakReference 和 ReferenceQueue。<br>在构建 WeakReference 对象时传入 ReferenceQueue，当 WeakReference 中传入的对象可以被回收时，会将 WeakReference 对象添加到 ReferenceQueue 中，倘若 WeakReference 中的对象无法被回收时，不会将 WeakReference 对象添加到 ReferenceQueue 中。这样便可以检测到，应该被回收的对象，却没有出现在 ReferenceQueue 中，这些对象就是造成内存泄漏的元凶。<br><strong>检测时机</strong><br>向主线程 MessageQueue 中插入了一个 IdleHandler，IdleHandler 只会在主线程空闲时才会被 Looper 从队列中取出并执行。因此能够有效避免内存检测工作占用 UI 渲染时间。 </p>
+<h2 id="单例、观察者、装饰者，工厂，双亲委托-–todo"><a href="#单例、观察者、装饰者，工厂，双亲委托-–todo" class="headerlink" title="单例、观察者、装饰者，工厂，双亲委托 –todo"></a>单例、观察者、装饰者，工厂，双亲委托 –todo</h2><p>单例：DCL、enum，静态内部类。还有饿汉式。懒汉式的使用场景：占用内存大、延迟初始化</p>
+<h2 id="策略模式和桥接模式的区别-–todo"><a href="#策略模式和桥接模式的区别-–todo" class="headerlink" title="策略模式和桥接模式的区别 –todo"></a>策略模式和桥接模式的区别 –todo</h2><h2 id="插件化和热更新原理-–todo"><a href="#插件化和热更新原理-–todo" class="headerlink" title="插件化和热更新原理 –todo"></a>插件化和热更新原理 –todo</h2><h2 id="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"><a href="#Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo" class="headerlink" title="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"></a>Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo</h2></body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Android/">#Android</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/%E9%9D%A2%E8%AF%95/">#面试</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2022/09/25/Handler-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E8%A7%A3%E6%9E%90/">Handler 的使用和解析</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Guan Jun&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/guanjundev">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>
