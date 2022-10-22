@@ -3,8 +3,9 @@ body, button, input, select, textarea {
   font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif; }
 
 a.tag.article-tag {
-  font-size: 0.9rem;
-  text-decoration: none; }
+  font-size: 0.6rem;
+  text-decoration: none;
+  color: gray; }
 
 @media screen and (min-width: 1024px) {
   .container {
