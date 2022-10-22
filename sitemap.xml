@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2022/09/25/Handler-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E8%A7%A3%E6%9E%90/</loc>
+    <loc>https://www.guanjundev.com/2022/09/25/Handler-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2022-10-21</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/10/19/2022%20Android%20%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
+    <loc>https://www.guanjundev.com/2022/10/19/2022%20Android%20%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
     
     <lastmod>2022-10-19</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/08/20/Hexo%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98/</loc>
+    <loc>https://www.guanjundev.com/2022/08/20/Hexo%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98/</loc>
     
     <lastmod>2022-10-16</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/08/20/Hexo-GitHub-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://www.guanjundev.com/2022/08/20/Hexo-GitHub-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2022-10-16</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/world/index.html</loc>
+    <loc>https://www.guanjundev.com/world/index.html</loc>
     
     <lastmod>2022-10-16</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>https://www.guanjundev.com/about/index.html</loc>
     
     <lastmod>2022-08-21</lastmod>
     
@@ -57,7 +57,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://www.guanjundev.com/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -65,28 +65,28 @@
 
   
   <url>
-    <loc>http://example.com/tags/Android/</loc>
+    <loc>https://www.guanjundev.com/tags/Android/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E9%9D%A2%E8%AF%95/</loc>
+    <loc>https://www.guanjundev.com/tags/%E9%9D%A2%E8%AF%95/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Handler/</loc>
+    <loc>https://www.guanjundev.com/tags/Handler/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Hexo/</loc>
+    <loc>https://www.guanjundev.com/tags/Hexo/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
