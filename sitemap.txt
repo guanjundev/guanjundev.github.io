@@ -6,6 +6,6 @@ https://www.guanjundev.com/world/index.html
 https://www.guanjundev.com/about/index.html
 https://www.guanjundev.com/
 https://www.guanjundev.com/tags/Android/
-https://www.guanjundev.com/tags/%E9%9D%A2%E8%AF%95/
 https://www.guanjundev.com/tags/Handler/
 https://www.guanjundev.com/tags/Hexo/
+https://www.guanjundev.com/tags/%E9%9D%A2%E8%AF%95/
