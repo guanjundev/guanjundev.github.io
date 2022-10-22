@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body, button, input, select, textarea {
-  font-family: "Microsoft YaHei"; }
+  font-family: "Microsoft YaHei", "Ovo", "Georgia", "STZhongsong", serif; }
 
 a.tag.article-tag {
   font-size: 0.6rem;
@@ -304,7 +304,7 @@ a.tag.article-tag {
 
 code, pre {
   font-size: 0.85rem;
-  font-family: "Microsoft YaHei"; }
+  font-family: "Microsoft YaHei", "Source Code Pro", monospace; }
 
 figure.highlight {
   padding: 0;
@@ -331,7 +331,7 @@ figure.highlight {
     font-size: .8rem; }
     figure.highlight figcaption span {
       font-weight: 500;
-      font-family: "Microsoft YaHei"; }
+      font-family: "Microsoft YaHei", "Source Code Pro", monospace; }
     figure.highlight figcaption a {
       float: right;
       color: #9a9a9a; }
