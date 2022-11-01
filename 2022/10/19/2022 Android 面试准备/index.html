@@ -24,7 +24,7 @@
 <meta property="og:description" content="ActivitysingleTask：单例，taskAffinity：指定 Activity 要压入的 task singleInstance：单例且独立 task allowTaskReparenting 赋予 Activity 在各个 Task 中间转移的特性  Activity 的 onSaveInstance 方法何时调用？它跟onPause、onStop的调用顺序如何？  Binder">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-19T15:25:45.000Z">
-<meta property="article:modified_time" content="2022-10-19T15:36:04.650Z">
+<meta property="article:modified_time" content="2022-11-01T15:18:47.750Z">
 <meta property="article:author" content="Guan Jun">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="面试">
@@ -218,7 +218,11 @@
                     <hr class="navbar-divider">
                     
                     
-                    <a class="navbar-item" href="#单例、观察者、装饰者，工厂，双亲委托-–todo">18&nbsp;&nbsp;<b>单例、观察者、装饰者，工厂，双亲委托 –todo</b></a>
+                    <a class="navbar-item" href="#单例、观察者、装饰者，工厂-–todo">18&nbsp;&nbsp;<b>单例、观察者、装饰者，工厂 –todo</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#单例模式">18.1&nbsp;&nbsp;单例模式</a>
                     
                     
                     <hr class="navbar-divider">
@@ -230,7 +234,7 @@
                     <hr class="navbar-divider">
                     
                     
-                    <a class="navbar-item" href="#插件化和热更新原理-–todo">20&nbsp;&nbsp;<b>插件化和热更新原理 –todo</b></a>
+                    <a class="navbar-item" href="#插件化和热更新原理">20&nbsp;&nbsp;<b>插件化和热更新原理</b></a>
                     
                     
                     <hr class="navbar-divider">
@@ -534,8 +538,18 @@
 <li>提供转换接口（RxJava、Gson）</li>
 </ul>
 <h2 id="Rxjava-–doing"><a href="#Rxjava-–doing" class="headerlink" title="Rxjava –doing"></a>Rxjava –doing</h2><h2 id="LeakCanary"><a href="#LeakCanary" class="headerlink" title="LeakCanary"></a>LeakCanary</h2><p><strong>实现原理</strong><br>LeakCanary 中对内存泄漏的检测基于 WeakReference 和 ReferenceQueue。<br>在构建 WeakReference 对象时传入 ReferenceQueue，当 WeakReference 中传入的对象可以被回收时，会将 WeakReference 对象添加到 ReferenceQueue 中，倘若 WeakReference 中的对象无法被回收时，不会将 WeakReference 对象添加到 ReferenceQueue 中。这样便可以检测到，应该被回收的对象，却没有出现在 ReferenceQueue 中，这些对象就是造成内存泄漏的元凶。<br><strong>检测时机</strong><br>向主线程 MessageQueue 中插入了一个 IdleHandler，IdleHandler 只会在主线程空闲时才会被 Looper 从队列中取出并执行。因此能够有效避免内存检测工作占用 UI 渲染时间。 </p>
-<h2 id="单例、观察者、装饰者，工厂，双亲委托-–todo"><a href="#单例、观察者、装饰者，工厂，双亲委托-–todo" class="headerlink" title="单例、观察者、装饰者，工厂，双亲委托 –todo"></a>单例、观察者、装饰者，工厂，双亲委托 –todo</h2><p>单例：DCL、enum，静态内部类。还有饿汉式。懒汉式的使用场景：占用内存大、延迟初始化</p>
-<h2 id="策略模式和桥接模式的区别-–todo"><a href="#策略模式和桥接模式的区别-–todo" class="headerlink" title="策略模式和桥接模式的区别 –todo"></a>策略模式和桥接模式的区别 –todo</h2><h2 id="插件化和热更新原理-–todo"><a href="#插件化和热更新原理-–todo" class="headerlink" title="插件化和热更新原理 –todo"></a>插件化和热更新原理 –todo</h2><h2 id="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"><a href="#Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo" class="headerlink" title="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"></a>Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo</h2></body></html>
+<h2 id="单例、观察者、装饰者，工厂-–todo"><a href="#单例、观察者、装饰者，工厂-–todo" class="headerlink" title="单例、观察者、装饰者，工厂 –todo"></a>单例、观察者、装饰者，工厂 –todo</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>饿汉模式：类加载时就初始化好了</p>
+<p>懒汉模式：调用 getInstance 的时候才进行初始化</p>
+<ul>
+<li>DCL：加同步锁两次判空</li>
+</ul>
+<h2 id="策略模式和桥接模式的区别-–todo"><a href="#策略模式和桥接模式的区别-–todo" class="headerlink" title="策略模式和桥接模式的区别 –todo"></a>策略模式和桥接模式的区别 –todo</h2><h2 id="插件化和热更新原理"><a href="#插件化和热更新原理" class="headerlink" title="插件化和热更新原理"></a>插件化和热更新原理</h2><p>插件化主要涉及2个技术点，类加载和反射。<br>用法包括增量和和修改。</p>
+<p><strong>增量场景</strong></p>
+<p>通过 DexClassLoader 加载插件 apk 或者 dex 包，然后通过反射去调用其中的类进行使用。</p>
+<p><strong>修改场景（热更新）</strong></p>
+<p>这里涉及到一个 <code>双亲委托</code> 的概念。其实就是 ClassLoader 在 getClass 的时候交给自己的 parent 去做，一层一层往上递归从缓存中找，找不到再从顶层往下去看哪个 ClassLoader 可以进行加载然后返回。</p>
+<p>ClassLoader 中有个 dexElements 的数组，加载的时候就是遍历这个数组然后进行加载。热更新的实现就是将修改后的类打包成 dex 之后，加载获取其 dexElements，然后将其与原 app 的 ClassLoader 的 dexElements 进行合并，将插件的 dexElements 放在前面，这样就可以优先加载修改后的类。</p>
+<h2 id="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"><a href="#Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo" class="headerlink" title="Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo"></a>Apk打包流程。R文件最终会生成什么文件？aapt的作用是什么？–todo</h2></body></html>
     
     </div>
     
